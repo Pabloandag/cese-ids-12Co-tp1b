@@ -2,9 +2,11 @@ SRC_DIR = ./src
 INC_DIR = ./inc
 OBJ_DIR = ./build/obj
 BIN_DIR = ./build
+DOC_DIR = ./build/doc
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.c)
 OBJ_FILES = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC_FILES))
+DOC_FILE  = ./doxyfile
 
 all: build_folders $(OBJ_FILES)
 	@echo Building aplication
@@ -29,3 +31,12 @@ $(BIN_DIR): $(OUT_DIR)
 $(OBJ_DIR): $(OUT_DIR)
 	@echo Creating output objects folder
 	@mkdir $(OBJ_DIR)
+
+###############################################################################
+# Generation of documentation
+doc: $(DOC_FILE) $(DOC_DIR)
+	@echo Generating documentation
+	@doxygen doxyfile
+$(DOC_DIR):
+	@echo Creating documentation folder
+	@mkdir $(DOC_DIR)
